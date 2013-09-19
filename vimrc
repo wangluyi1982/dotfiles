@@ -131,7 +131,7 @@ map <leader>r :RopeRename<CR>
 " ==========================================================
 " Load pathogen with docs for all plugins
 filetype off
-call pathogen#runtime_append_all_bundles()
+call pathogen#incubate()
 call pathogen#helptags()
 
 " ==========================================================
@@ -238,7 +238,6 @@ if has("gui_running")
     set guioptions-=T
 endif
 
-colorscheme molokai
 
 " Paste from clipboard
 map <leader>p "+p
