@@ -1,4 +1,3 @@
-" https://github.com/sontek/dotfiles/
 " ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
@@ -137,12 +136,18 @@ call pathogen#helptags()
 " ==========================================================
 " Basic Settings
 " ==========================================================
+syntax enable                 "syntax enable
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
-set background=dark           " We are using dark background in vim
+if has('gui_running')
+    set background=dark       " We are using light color when vim running in gui_running
+else 
+    set background=dark
+endif
+colorscheme solarized
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
@@ -157,7 +162,8 @@ set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
 set grepprg=ack         " replace the default grep program with ack
-
+" showing the line break and blank space
+set list 
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
