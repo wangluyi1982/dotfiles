@@ -70,3 +70,12 @@
 [submodule "bundle/command-T"]
 	path = bundle/command-T
 	url = https://github.com/wincent/Command-T.git
+[submodule "bundle/python-model"]
+	path = bundle/python-model
+	url = https://github.com/klen/python-mode
+[submodule "bundle/AsyncCommand"]
+	path = bundle/AsyncCommand
+	url = https://github.com/pydave/AsyncCommand
+[submodule "bundle/vim-makegreen"]
+	path = bundle/vim-makegreen
+	url = https://github.com/reinh/vim-makegreen
