@@ -1,11 +1,10 @@
-vim file 
+vim file
 
-modified from https://github.com/sontek/dotfiles/
+Installation Guide:
 
-For the first checkout. 
 git clone https://github.com/wangluyi1982/dotfiles .vim
 cd .vim
 git submodule init
 git submodule update
-
-
+git submodule foreach git pull origin master
+ln -s .vim/vimrc ~/.vimrc
