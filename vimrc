@@ -76,6 +76,7 @@ map <leader>td <Plug>TaskList
 " Run pep8
 let g:pep8_map='<leader>8'
 
+let g:pymode_rope=0
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
 nmap <silent><Leader>tc <Esc>:Pytest class<CR>
@@ -246,7 +247,7 @@ endif
 
 " Paste from clipboard
 map <leader>p "+p
-
+map <leader>y "+y
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>
 
