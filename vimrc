@@ -141,13 +141,18 @@ syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
 set number                    " Display line numbers
-set numberwidth=1             " using only 1 column (and 1 space) while possible
+set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
+
+let g:seoul256_background = 233
+let g:seoul256_light_background = 256
+
 if has('gui_running')
     set background=dark       " We are using light color when vim running in gui_running
 else 
     set background=dark
 endif
 colorscheme solarized
+colo seoul256-light
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
