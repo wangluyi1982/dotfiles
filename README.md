@@ -1,4 +1,4 @@
-# H1 vim file
+# Vim dot file
 
 ## Installation Guide:
 ```
