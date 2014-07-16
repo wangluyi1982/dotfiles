@@ -1,6 +1,3 @@
-[submodule "bundle/dotfiles"]
-	path = bundle/dotfiles
-	url = https://github.com/sontek/dotfiles.git
 [submodule "bundle/ack.vim"]
 	path = bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
