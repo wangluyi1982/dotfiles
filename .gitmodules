@@ -88,6 +88,3 @@
 [submodule "bundle/vim-misc"]
 	path = bundle/vim-misc
 	url = https://github.com/xolox/vim-misc
-[submodule "/home/louis/.vim/bundle/seoul256.vim"]
-	path = /home/louis/.vim/bundle/seoul256.vim
-	url = https://github.com/junegunn/seoul256.vim.git
