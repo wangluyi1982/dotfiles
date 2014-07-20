@@ -77,6 +77,8 @@ map <leader>td <Plug>TaskList
 let g:pep8_map='<leader>8'
 
 let g:pymode_rope=0
+
+let g:vim_markdown_folding_disabled=1
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
 nmap <silent><Leader>tc <Esc>:Pytest class<CR>
@@ -151,7 +153,6 @@ if has('gui_running')
 else 
     set background=dark
 endif
-colorscheme solarized
 colo seoul256-light
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
@@ -201,8 +202,6 @@ set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
-set foldmethod=indent       " allow us to fold on indents
-set foldlevel=99            " don't fold by default
 
 " don't outdent hashes
 inoremap # #
@@ -316,3 +315,4 @@ endif
 if exists("&colorcolumn")
    set colorcolumn=79
 endif
+
