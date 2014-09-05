@@ -91,3 +91,6 @@
 [submodule "bundle/seoul256.vim"]
 	path = bundle/seoul256.vim
 	url = https://github.com/junegunn/seoul256.vim.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
