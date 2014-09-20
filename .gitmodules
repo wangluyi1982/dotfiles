@@ -70,9 +70,6 @@
 [submodule "bundle/python-model"]
 	path = bundle/python-model
 	url = https://github.com/klen/python-mode
-[submodule "bundle/AsyncCommand"]
-	path = bundle/AsyncCommand
-	url = https://github.com/pydave/AsyncCommand
 [submodule "bundle/vim-makegreen"]
 	path = bundle/vim-makegreen
 	url = https://github.com/reinh/vim-makegreen
@@ -82,9 +79,6 @@
 [submodule "bundle/detectindent"]
 	path = bundle/detectindent
 	url = https://github.com/ciaranm/detectindent
-[submodule "bundle/vim-session"]
-	path = bundle/vim-session
-	url = https://github.com/xolox/vim-session
 [submodule "bundle/vim-misc"]
 	path = bundle/vim-misc
 	url = https://github.com/xolox/vim-misc
