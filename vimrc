@@ -128,10 +128,7 @@ map <leader>r :RopeRename<CR>
 " Pathogen - Allows us to organize our vim plugins
 " ==========================================================
 " Load pathogen with docs for all plugins
-filetype off
-call pathogen#incubate()
-call pathogen#helptags()
-
+execute pathogen#infect()
 " ==========================================================
 " Basic Settings
 " ==========================================================

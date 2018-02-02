@@ -6,6 +6,7 @@ git submodule update
 git submodule foreach git pull origin master
 
 for s in `git submodule  --quiet foreach 'echo $name'` ; do git config submodule.$s.ignore untracked ; done
+ln -s ~/.vim/vim-pathogen/autoload ~/.vim/
 if [ -f ~/.vimrc ] ; then mv ~/.vimrc ~/.vimrc_bak ; fi
 ln -s ~/.vim/vimrc ~/.vimrc 
 if [ -d ~/.oh-my-zsh/ ] ; then rm -fr ~/.oh-my-zsh ; fi
