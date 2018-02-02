@@ -80,3 +80,5 @@ export PATH="/home/louis/sources/pydev/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+export ANDROID_HOME=~/Downloads/Android/Sdk
+export PATH=$PATH:$HOME/anaconda3/bin
