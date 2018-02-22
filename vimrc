@@ -48,27 +48,8 @@
 " ==========================================================
 " Shortcuts
 " ==========================================================
-set nocompatible              " Don't be compatible with vi
-
-" Seriously, guys. It's not like :W is bound to anything anyway.
-command! W :w
-
-fu! SplitScroll()
-    :wincmd v
-    :wincmd w
-    execute "normal! \<C-d>"
-    :set scrollbind
-    :wincmd w
-    :set scrollbind
-endfu
-
-nmap <leader>sb :call SplitScroll()<CR>
 
 
-"<CR><C-w>l<C-f>:set scrollbind<CR>
-
-" sudo write this
-cmap W! w !sudo tee % >/dev/null
 
 " Toggle the tasklist
 map <leader>td <Plug>TaskList
@@ -79,6 +60,17 @@ let g:pep8_map='<leader>8'
 let g:pymode_rope=0
 
 let g:vim_markdown_folding_disabled=1
+
+"Run Vim-clang
+"path to directory where library can be found
+let g:clang_library_path='/usr/lib/llvm-3.8/lib'
+let g:airline#extensions#tabline#enabled = 1
+
+
+" Tab navigation 
+nnoremap <C-S-tab> :bprevious<CR>
+nnoremap <C-tab>   :bnext<CR>
+"
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
 nmap <silent><Leader>tc <Esc>:Pytest class<CR>
@@ -97,19 +89,10 @@ nmap <leader>cc :cclose<CR>
 " for when we forget to use sudo to open/edit a file
 cmap w!! w !sudo tee % >/dev/null
 
-" ctrl-jklm  changes to that split
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
-" and lets make these all work in insert mode too ( <C-O> makes next cmd
-"  happen as if in command mode )
-imap <C-W> <C-O><C-W>
 
 " Open NerdTree
 map <leader>n :NERDTreeToggle<CR>
-
+let NERDTreeMapOpenInTab='\r'
 map <leader>f :CtrlP<CR>
 map <leader>b :CtrlPBuffer<CR>
 
@@ -124,7 +107,8 @@ map <leader>j :RopeGotoDefinition<CR>
 
 " Rename whatever the cursor is on (including references to it)
 map <leader>r :RopeRename<CR>
-" ==========================================================
+
+"==========================================================
 " Pathogen - Allows us to organize our vim plugins
 " ==========================================================
 " Load pathogen with docs for all plugins
@@ -200,9 +184,6 @@ set matchpairs+=<:>         " show matching <> (html mainly) as well
 " don't outdent hashes
 inoremap # #
 
-" close preview window automatically when we move around
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 """" Reading/Writing
 set noautowrite             " Never write a file unless I request it.
@@ -220,7 +201,6 @@ set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
@@ -232,15 +212,6 @@ set smartcase               " unless uppercase letters are used in the regex.
 set smarttab                " Handle tabs more intelligently 
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
-
-"""" Display
-if has("gui_running")
-    " Remove menu bar
-    set guioptions-=m
-
-    " Remove toolbar
-    set guioptions-=T
-endif
 
 
 " Paste from clipboard
@@ -286,27 +257,4 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 let g:pyflakes_use_quickfix = 0
 
 
-
-" Add the virtualenv's site-packages to vim path
-if has('python')
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-endif
-
-" Load up virtualenv's vimrc if it exists
-if filereadable($VIRTUAL_ENV . '/.vimrc')
-    source $VIRTUAL_ENV/.vimrc
-endif
-
-if exists("&colorcolumn")
-   set colorcolumn=79
-endif
 
