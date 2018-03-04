@@ -68,8 +68,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 
 " Tab navigation 
-nnoremap <C-S-tab> :bprevious<CR>
-nnoremap <C-tab>   :bnext<CR>
+nnoremap th :bnext<CR>
+nnoremap tl :bprev<CR>
+nnoremap tn :bnew<CR>
 "
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
