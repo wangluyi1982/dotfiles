@@ -71,6 +71,9 @@ let g:airline#extensions#tabline#enabled = 1
 nnoremap th :bnext<CR>
 nnoremap tl :bprev<CR>
 nnoremap tn :bnew<CR>
+
+" Buffer "
+nnoremap c :bp\|bd #<CR>
 "
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
@@ -121,6 +124,8 @@ syntax enable                 "syntax enable
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
+nnoremap c :bp\|bd #<CR>
+set nofoldenable
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
 
