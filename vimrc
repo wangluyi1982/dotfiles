@@ -57,7 +57,15 @@ map <leader>td <Plug>TaskList
 " Run pep8
 let g:pep8_map='<leader>8'
 
-let g:pymode_rope=0
+let g:pymode_rope=1
+let g:pymode_autoimport=1
+let g:pymode_rope_completion=1
+let g:pymode_rope_complete_on_dot=1
+let g:pymode_rope_regeneration_on_write=1
+let g:pymode_indent=1
+let g:pymode_python='python3'
+let g:pymode_lint_on_write=1
+let g:pymode_lint_message=1
 
 let g:vim_markdown_folding_disabled=1
 
@@ -65,12 +73,18 @@ let g:vim_markdown_folding_disabled=1
 "path to directory where library can be found
 let g:clang_library_path='/usr/lib/llvm-3.8/lib'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter= 'jsformatter'
+let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized_flood'
 
 
 " Tab navigation 
 nnoremap th :bnext<CR>
 nnoremap tl :bprev<CR>
 nnoremap tn :bnew<CR>
+
+" Remap Esc 
+inoremap jj <ESC>
 
 " Buffer "
 nnoremap c :bp\|bd #<CR>
@@ -129,22 +143,19 @@ set nofoldenable
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
 
-let g:seoul256_background = 233
-let g:seoul256_light_background = 256
-
+colorscheme desert 
 if has('gui_running')
     set background=dark       " We are using light color when vim running in gui_running
 else 
     set background=dark
 endif
-colo seoul256-light
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
 
 " don't bell or blink
 set noerrorbells
-set vb t_vb=
+" set vb t_vb=
 
 " Ignore these files when completing
 set wildignore+=*.o,*.obj,.git,*.pyc
@@ -201,7 +212,7 @@ set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
 set ls=2                    " allways show status line
-set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
+" set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
 set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
@@ -256,8 +267,8 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 " Python
 "au BufRead *.py compiler nose
 au FileType python set omnifunc=pythoncomplete#Complete
-au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au FileType coffee setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+au FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+au FileType coffee setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0

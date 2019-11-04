@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/louis/sources/pydev/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429@global/bin:/home/louis/.rvm/rubies/ruby-1.9.3-p429/bin:/home/louis/.rvm/bin:/opt/smcl-package-scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/louis/android-sdks/platform-tools"
+# export PATH="/home/louis/sources/pydev/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429@global/bin:/home/louis/.rvm/rubies/ruby-1.9.3-p429/bin:/home/louis/.rvm/bin:/opt/smcl-package-scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/louis/android-sdks/platform-tools"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -80,6 +80,9 @@ export PATH="/home/louis/sources/pydev/bin:/home/louis/.rvm/gems/ruby-1.9.3-p429
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export ANDROID_HOME=~/Downloads/Android/Sdk
-export PATH=$PATH:$HOME/anaconda3/bin
 setopt +o nomatch
+export ANDROID_HOME=/Users/louis/Library/Android/sdk
+export PATH=$PATH:$HOME/anaconda3/bin
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion`
