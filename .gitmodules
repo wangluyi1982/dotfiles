@@ -109,9 +109,6 @@
 [submodule "bundle/vim-gitgutter"]
 	path = bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
-[submodule "/Users/louis/.vim/bundle/colorschemes"]
-	path = /Users/louis/.vim/bundle/colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
 [submodule "bundle/python-mode"]
 	path = bundle/python-mode
 	url = https://github.com/python-mode/python-mode.git
