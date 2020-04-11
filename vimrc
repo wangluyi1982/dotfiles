@@ -9,9 +9,34 @@
 " ==========================================================
 " Plugins included
 " ==========================================================
-" Pathogen
-"     Better Management of VIM plugins
-"
+
+" Switching from pathogen to vim-plug.
+" This will load and install vim-plug if it isn't already installed.
+" Load vim-plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+call plug#begin('~/.vim/bundle')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'wincent/command-t'
+Plug 'sjl/gundo.vim'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'junegunn/seoul256.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go'
+Plug 'plasticboy/vim-markdown'
+Plug 'tpope/vim-surround'
+call plug#end()
 " GunDo
 "     Visual Undo in vim with diff's to check the differences
 "
@@ -130,7 +155,7 @@ map <leader>r :RopeRename<CR>
 " Pathogen - Allows us to organize our vim plugins
 " ==========================================================
 " Load pathogen with docs for all plugins
-execute pathogen#infect()
+" execute pathogen#infect()
 " ==========================================================
 " Basic Settings
 " ==========================================================
@@ -164,7 +189,7 @@ set wildignore+=*.egg-info/**
 
 set grepprg=ack         " replace the default grep program with ack
 " showing the line break and blank space
-set list 
+set nolist 
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
