@@ -19,7 +19,8 @@ endif
 
 call plug#begin('~/.vim/bundle')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'rafi/awesome-vim-colorschemes'
+" Plug 'rafi/awesome-vim-colorschemes'
+Plug 'morhetz/gruvbox'
 Plug 'wincent/command-t'
 Plug 'sjl/gundo.vim'
 Plug 'preservim/nerdcommenter'
@@ -27,7 +28,7 @@ Plug 'preservim/nerdtree'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'junegunn/seoul256.vim'
 Plug 'vim-syntastic/syntastic'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -36,6 +37,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install()}}
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 " GunDo
 "     Visual Undo in vim with diff's to check the differences
@@ -168,7 +172,7 @@ set nofoldenable
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
 
-colorscheme desert 
+colorscheme gruvbox 
 if has('gui_running')
     set background=dark       " We are using light color when vim running in gui_running
 else 
@@ -298,5 +302,11 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-
-
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references)
+nnoremap <C-p> :GFiles<CR> 
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+autocmd CursorHold * silent call CocActionAsync('highlight')
+set guifont=Menlo\ Regular:h20

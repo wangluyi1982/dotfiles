@@ -86,3 +86,8 @@ export PATH=$PATH:$HOME/anaconda3/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion`
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+alias vim='mvim -v'
