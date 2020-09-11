@@ -22,7 +22,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'rafi/awesome-vim-colorschemes'
 Plug 'morhetz/gruvbox'
 Plug 'wincent/command-t'
-Plug 'sjl/gundo.vim'
+" Plug 'sjl/gundo.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
@@ -37,10 +37,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install()}}
-Plug 'junegunn/fzf.vim'
-Plug 'jiangmiao/auto-pairs'
-
 call plug#end()
 " GunDo
 "     Visual Undo in vim with diff's to check the differences
@@ -78,7 +74,11 @@ call plug#end()
 " ==========================================================
 " Shortcuts
 " ==========================================================
-
+"
+"
+" map leader from \ to ,
+"
+let mapleader = ','
 
 
 " Toggle the tasklist
@@ -87,16 +87,12 @@ map <leader>td <Plug>TaskList
 " Run pep8
 let g:pep8_map='<leader>8'
 
-let g:pymode_rope=1
 let g:pymode_autoimport=1
-let g:pymode_rope_completion=1
-let g:pymode_rope_complete_on_dot=1
-let g:pymode_rope_regeneration_on_write=1
 let g:pymode_indent=1
 let g:pymode_python='python3'
 let g:pymode_lint_on_write=1
-let g:pymode_lint_message=1
-
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_maxheight = 6
 let g:vim_markdown_folding_disabled=1
 
 "Run Vim-clang
@@ -107,11 +103,15 @@ let g:airline#extensions#tabline#formatter= 'jsformatter'
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized_flood'
 
+" split control
+
+nnoremap vs :vs<CR>
+nnoremap sp :sp<CR> 
+nnoremap on :on<CR>
 
 " Tab navigation 
 nnoremap th :bnext<CR>
 nnoremap tl :bprev<CR>
-nnoremap tn :bnew<CR>
 
 " Remap Esc 
 inoremap jj <ESC>
@@ -141,8 +141,9 @@ cmap w!! w !sudo tee % >/dev/null
 " Open NerdTree
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeMapOpenInTab='\r'
-map <leader>f :CtrlP<CR>
-map <leader>b :CtrlPBuffer<CR>
+
+" Quit NerdTree if it is the last buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Ack searching
 nmap <leader>a <Esc>:Ack!
@@ -156,11 +157,6 @@ map <leader>j :RopeGotoDefinition<CR>
 " Rename whatever the cursor is on (including references to it)
 map <leader>r :RopeRename<CR>
 
-"==========================================================
-" Pathogen - Allows us to organize our vim plugins
-" ==========================================================
-" Load pathogen with docs for all plugins
-" execute pathogen#infect()
 " ==========================================================
 " Basic Settings
 " ==========================================================
@@ -282,8 +278,8 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 au BufRead *.js set makeprg=jslint\ %
 
 " Use tab to scroll through autocomplete menus
-"autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
-"autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
+autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
+autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
 let g:acp_completeoptPreview=1
 
@@ -295,7 +291,7 @@ autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 " Python
-"au BufRead *.py compiler nose
+" au BufRead *.py compiler nose
 au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 au FileType coffee setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
@@ -311,3 +307,5 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd CursorHold * silent call CocActionAsync('highlight')
 set guifont=Menlo\ Regular:h20
+let $PATH=$PATH
+let g:coc_disable_startup_warning = 1
