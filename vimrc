@@ -34,10 +34,15 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
+Plug 'ycm-core/YouCompleteMe'
 call plug#end()
+call glaive#Install()
 " GunDo
 "     Visual Undo in vim with diff's to check the differences
 "
@@ -309,3 +314,18 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 set guifont=Menlo\ Regular:h20
 let $PATH=$PATH
 let g:coc_disable_startup_warning = 1
+
+"  Make the google autoformating
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
+
