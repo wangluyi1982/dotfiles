@@ -51,6 +51,8 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'tell-k/vim-autopep8'
 call plug#end()
 call glaive#Install()
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable="java -jar /home/louis/sources/jars/google-java-format-1.7-all-deps.jar"
 set encoding=utf-8
 set hidden
 set nobackup
@@ -489,3 +491,4 @@ augroup END
 "endif
 "call coc#config('python', {'pythonPath': s:current_python_path})
 "let g:pymode_rope_regenerate_on_write = 1
+noremap // y/<C-R>=escape(@",'/\')<CR><CR>
