@@ -31,12 +31,12 @@ call plug#begin('~/.vim/bundle')
 "Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'morhetz/gruvbox'
-Plug 'wincent/command-t'
+"Plug 'wincent/command-t'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'junegunn/seoul256.vim'
-Plug 'vim-syntastic/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
