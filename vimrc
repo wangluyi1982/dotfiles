@@ -47,7 +47,7 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
-Plug 'ycm-core/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe',  { 'commit':'d98f896' }
 Plug 'tell-k/vim-autopep8'
 call plug#end()
 call glaive#Install()
@@ -492,3 +492,10 @@ augroup END
 "call coc#config('python', {'pythonPath': s:current_python_path})
 "let g:pymode_rope_regenerate_on_write = 1
 noremap // y/<C-R>=escape(@",'/\')<CR><CR>
+let g:ycm_goto_buffer_command = 'horizontal-split'
+nnoremap  <c-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap  <c-.> :YcmCompleter GoToReferences <CR>
+nnoremap  <c-r> :YcmCompleter RefactorRename<CR>
+nnoremap  <c-lf> :YcmCompleter Format<CR>
+nnoremap  <c-d> :YcmCompleter GetDoc<CR>
+nnoremap  <c-f> :YcmCompleter GoToSymbol<CR>
