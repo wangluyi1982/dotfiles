@@ -125,3 +125,4 @@ then
     # <<< conda initialize <<<
     alias python3="/opt/anaconda3/bin/python"
 fi
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/.conda/pkgs/cudatoolkit-11.0.3-h15472ef_8/lib/

@@ -18,9 +18,9 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin('~/.vim/bundle')
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
@@ -29,7 +29,7 @@ call plug#begin('~/.vim/bundle')
 "Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'morhetz/gruvbox'
 "Plug 'wincent/command-t'
 Plug 'preservim/nerdcommenter'
@@ -498,4 +498,3 @@ nnoremap  <c-.> :YcmCompleter GoToReferences <CR>
 nnoremap  <c-r> :YcmCompleter RefactorRename<CR>
 nnoremap  <c-lf> :YcmCompleter Format<CR>
 nnoremap  <c-d> :YcmCompleter GetDoc<CR>
-nnoremap  <c-f> :YcmCompleter GoToSymbol<CR>
