@@ -19,40 +19,46 @@ endif
 
 call plug#begin('~/.vim/bundle')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter',{'do':'TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-lua/popup.nvim'
+Plug 'rmagatti/auto-session'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'rust-lang/rust.vim'
+Plug 'xolox/vim-misc'
 Plug 'morhetz/gruvbox'
-"Plug 'wincent/command-t'
+Plug 'sainnhe/gruvbox-material'
+Plug 'moll/vim-bbye'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
-"Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'junegunn/seoul256.vim'
-"Plug 'vim-syntastic/syntastic'
-Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
-Plug 'plasticboy/vim-markdown'
-Plug 'tpope/vim-surround'
-Plug 'ycm-core/YouCompleteMe',  { 'commit':'d98f896' }
-Plug 'tell-k/vim-autopep8'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'vim-syntastic/syntastic'
+
 call plug#end()
 call glaive#Install()
 Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar /home/louis/sources/jars/google-java-format-1.7-all-deps.jar"
+Glaive codefmt google_java_executable="java -jar ~/Downloads/google-java-format-1.15.0-all-deps.jar"
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 set encoding=utf-8
 set hidden
 set nobackup
@@ -67,11 +73,6 @@ set shortmess+=c
 " Commant-T
 "     Allows easy search and opening of files within a given path
 "
-" Snipmate
-"     Configurable snippets to avoid re-typing common comands
-"
-" PyFlakes
-"     Underlines and displays errors with Python on-the-fly
 "
 " Fugitive
 "    Interface with git from vim
@@ -94,7 +95,19 @@ set shortmess+=c
 " ==========================================================
 " Shortcuts
 " ==========================================================
-"
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType rust AutoFormatBuffer rustfmt
+  autocmd FileType vue AutoFormatBuffer prettier
+augroup END
 "
 " map leader from \ to ,
 "
@@ -104,25 +117,19 @@ let mapleader = ','
 " Toggle the tasklist
 map <leader>td <Plug>TaskList
 
-" Run pep8
-let g:pep8_map='<leader>8'
-let g:pymode_rope=0
-let g:pymode_autoimport=1
-let g:pymode_indent=1
-let g:pymode_python='python3'
-let g:pymode_lint_on_write=1
-let g:pymode_quickfix_minheight = 3
-let g:pymode_quickfix_maxheight = 6
-let g:vim_markdown_folding_disabled=1
 
 "Run Vim-clang
 "path to directory where library can be found
 let g:clang_library_path='/usr/lib/llvm-3.8/lib'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter= 'jsformatter'
+let g:airline_theme = 'gruvbox_material'
 let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized_flood'
-
+let g:airline_section_b = '%{getcwd()}' " in section B of the status line display the CWD                                                 
+                                                                                                                                          
+"TABLINE:                                                                                                                                 
+                                                                                                                                          
+let g:airline#extensions#tabline#enabled = 1           " enable airline tabline                                                           
+let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
+"let g:airline_symbols.colnr='»'
 " split control
 
 nnoremap vs :vs<CR>
@@ -137,7 +144,7 @@ nnoremap tl :bprev<CR>
 inoremap jj <ESC>
 
 " Buffer "
-nnoremap c :bp\|bd #<CR>
+nnoremap c :Bp\|Bd #<CR>
 "
 " run py.test's
 nmap <silent><Leader>tf <Esc>:Pytest file<CR>
@@ -160,23 +167,26 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Open NerdTree
 map <leader>n :NERDTreeToggle<CR>
-let NERDTreeMapOpenInTab='\r'
+let g:NERDTreeMapOpenInTab='\r'
+let g:NERDTreeChDirMode=2
 
 " Quit NerdTree if it is the last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Ack searching
-nmap <leader>a <Esc>:Ack!
 
-" Load the Gundo window
-map <leader>g :GundoToggle<CR>
+" Coc Key Binding
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-" Jump to the definition of whatever the cursor is on
-map <leader>j :RopeGotoDefinition<CR>
+let g:rust_cargo_use_clippy = 1
+let g:rustfmt_autosave = 1
 
-" Rename whatever the cursor is on (including references to it)
-map <leader>r :RopeRename<CR>
 
+" Rust Key Binding
+map <leader>mr :make run<CR>
+map <leader>mb :make build<CR>
 " ==========================================================
 " Basic Settings
 " ==========================================================
@@ -189,12 +199,6 @@ set nofoldenable
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
 
-colorscheme gruvbox 
-if has('gui_running')
-    set background=dark       " We are using light color when vim running in gui_running
-else 
-    set background=dark
-endif
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
@@ -278,10 +282,15 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 " Paste from clipboard
-map <leader>p "+p
-map <leader>y "+y
+nnoremap <leader>p "+p<CR>
+nnoremap <leader>y "+y<CR>
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>
+
+nnoremap <silent> <F2> :make b<CR>
+nnoremap <silent> <F5> :make r<CR>
+nnoremap <silent> <F8> :!CRITERION_DEBUG=1 cargo bench<CR>
+
 
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
@@ -331,11 +340,11 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-"inoremap <silent><expr> <TAB>
-      "\ pumvisible() ? "\<C-n>" :
-      "\ <SID>check_back_space() ? "\<TAB>" :
-      "\ coc#refresh()
-"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 "function! s:check_back_space() abort
   "let col = col('.') - 1
@@ -343,11 +352,11 @@ endif
 "endfunction
 
 "" Use <c-space> to trigger completion.
-"if has('nvim')
-  "inoremap <silent><expr> <c-space> coc#refresh()
-"else
-  "inoremap <silent><expr> <c-@> coc#refresh()
-"endif
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 "" Make <CR> auto-select the first completion item and notify coc.nvim to
 "" format on enter, <cr> could be remapped by other vim plugin
@@ -356,37 +365,32 @@ endif
 
 "" Use `[g` and `]g` to navigate diagnostics
 "" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-"nmap <silent> [g <Plug>(coc-diagnostic-prev)
-"nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-"" GoTo code navigation.
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
 
 "" Use K to show documentation in preview window.
-"nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-"function! s:show_documentation()
-  "if (index(['vim','help'], &filetype) >= 0)
-    "execute 'h '.expand('<cword>')
-  "elseif (coc#rpc#ready())
-    "call CocActionAsync('doHover')
-  "else
-    "execute '!' . &keywordprg . " " . expand('<cword>')
-  "endif
-"endfunction
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 "" Highlight the symbol and its references when holding the cursor.
-"autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "" Symbol renaming.
-"nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 
 "" Formatting selected code.
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 "augroup mygroup
   "autocmd!
@@ -444,7 +448,6 @@ endif
 "" Add (Neo)Vim's native statusline support.
 "" NOTE: Please see `:h coc-status` for integrations with external plugins that
 "" provide custom statusline: lightline.vim, vim-airline.
-"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 "" Mappings for CoCList
 "" Show all diagnostics.
@@ -465,23 +468,10 @@ endif
 "nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
-set guifont=Menlo\ Regular:h20
+"set guifont=Menlo\ Regular:h20
 " let $PATH=$PATH
 "let g:coc_disable_startup_warning = 1
 
-"  Make the google autoformating
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  autocmd FileType vue AutoFormatBuffer prettier
-augroup END
 
 " Conda python coc 
 "if $CONDA_PREFIX == ""
@@ -492,9 +482,30 @@ augroup END
 "call coc#config('python', {'pythonPath': s:current_python_path})
 "let g:pymode_rope_regenerate_on_write = 1
 noremap // y/<C-R>=escape(@",'/\')<CR><CR>
-let g:ycm_goto_buffer_command = 'horizontal-split'
-nnoremap  <c-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap  <c-.> :YcmCompleter GoToReferences <CR>
-nnoremap  <c-r> :YcmCompleter RefactorRename<CR>
-nnoremap  <c-lf> :YcmCompleter Format<CR>
-nnoremap  <c-d> :YcmCompleter GetDoc<CR>
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+let g:neovide_cursor_animation_length=0
+set showtabline=1
+if has('termguicolors')
+      set termguicolors
+    endif
+    set background=light
+    let g:gruvbox_background = 'soft'
+    let g:gruvbox_better_performance = 1
+colorscheme gruvbox
+
+"Telescope 
+"
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <leader>fb <cmd>Telescope buffers<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+nnoremap <Leader>pp <cmd>lua require'telescope.builtin'.grep_string{"<cword>"}<cr>
+
+
+set guifont=Monaco:h20
