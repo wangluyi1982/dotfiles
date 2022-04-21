@@ -1,12 +1,4 @@
 " ==========================================================
-" Dependencies - Libraries/Applications outside of vim
-" ==========================================================
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Pyflakes
-" Ack
-" nose, django-nose
-
-" ==========================================================
 " Plugins included
 " ==========================================================
 
@@ -38,20 +30,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-syntastic/syntastic'
+Plug 'stevearc/aerial.nvim'
+Plug 'stevearc/stickybuf.nvim'
 
 call plug#end()
-call glaive#Install()
-Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar ~/Downloads/google-java-format-1.15.0-all-deps.jar"
-" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-" - https://github.com/Valloric/YouCompleteMe
-" - https://github.com/nvim-lua/completion-nvim
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -61,54 +46,9 @@ let g:UltiSnipsEditSplit="vertical"
 
 set encoding=utf-8
 set hidden
-set nobackup
-set nowritebackup
 set cmdheight=2
 set updatetime=300
-set shortmess+=c
 
-" Pytest
-"     Runs your Python tests in Vim.
-"
-" Commant-T
-"     Allows easy search and opening of files within a given path
-"
-"
-" Fugitive
-"    Interface with git from vim
-"
-" Git
-"    Syntax highlighting for git config files
-"
-" Pydoc
-"    Opens up pydoc within vim
-"
-" Surround
-"    Allows you to surround text with open/close tags
-"
-" Py.test
-"    Run py.test test's from within vim
-"
-" MakeGreen
-"    Generic test runner that works with nose
-"
-" ==========================================================
-" Shortcuts
-" ==========================================================
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
-  autocmd FileType rust AutoFormatBuffer rustfmt
-  autocmd FileType vue AutoFormatBuffer prettier
-augroup END
-"
 " map leader from \ to ,
 "
 let mapleader = ','
@@ -117,19 +57,16 @@ let mapleader = ','
 " Toggle the tasklist
 map <leader>td <Plug>TaskList
 
-
-"Run Vim-clang
-"path to directory where library can be found
-let g:clang_library_path='/usr/lib/llvm-3.8/lib'
-let g:airline_theme = 'gruvbox_material'
-let g:airline_powerline_fonts = 1
-let g:airline_section_b = '%{getcwd()}' " in section B of the status line display the CWD                                                 
+" Airline Setting
                                                                                                                                           
 "TABLINE:                                                                                                                                 
-                                                                                                                                          
 let g:airline#extensions#tabline#enabled = 1           " enable airline tabline                                                           
-let g:airline#extensions#tabline#show_tab_type = 0     " disables the weird ornage arrow on the tabline
-"let g:airline_symbols.colnr='»'
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#tab_nr_type= 1     " disables the weird ornage arrow on the tabline
+
+" ############# KEYBINDING################
 " split control
 
 nnoremap vs :vs<CR>
@@ -161,10 +98,24 @@ map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimr
 nmap <leader>c :copen<CR>
 nmap <leader>cc :cclose<CR>
 
+" Close Buffer
+nnoremap c :bp\|bd #<CR>
 " for when we forget to use sudo to open/edit a file
 cmap w!! w !sudo tee % >/dev/null
 
+" Coc Key Binding
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+
+
+"##############PLUG IN  SETTING#####################
+"
 " Open NerdTree
 map <leader>n :NERDTreeToggle<CR>
 let g:NERDTreeMapOpenInTab='\r'
@@ -174,17 +125,11 @@ let g:NERDTreeChDirMode=2
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 
-" Coc Key Binding
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
+" Rust Binding
 let g:rust_cargo_use_clippy = 1
 let g:rustfmt_autosave = 1
 
 
-" Rust Key Binding
 map <leader>mr :make run<CR>
 map <leader>mb :make build<CR>
 " ==========================================================
@@ -194,7 +139,6 @@ syntax enable                 "syntax enable
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
-nnoremap c :bp\|bd #<CR>
 set nofoldenable
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 spacAe) while possible
@@ -215,9 +159,6 @@ set wildignore+=*.egg-info/**
 set grepprg=ack         " replace the default grep program with ack
 " showing the line break and blank space
 set nolist 
-
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
 
 " Disable the colorcolumn when switching modes.  Make sure this is the
 " first autocmd for the filetype here
@@ -247,6 +188,8 @@ set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
+set textwidth=80
+set colorcolumn=-1
 
 " don't outdent hashes
 inoremap # #
@@ -261,13 +204,11 @@ set modelines=5             " they must be within the first or last 5 lines.
 set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
-set ls=2                    " allways show status line
 " set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
 set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
-set laststatus=2            " Always show statusline, even if only 1 window.
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
@@ -301,10 +242,6 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" ==========================================================
-" Javascript
-" ==========================================================
-au BufRead *.js set makeprg=jslint\ %
 
 " Use tab to scroll through autocomplete menus
 autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
@@ -312,44 +249,6 @@ autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
 
 let g:acp_completeoptPreview=1
 
-" ===========================================================
-" FileType specific changes
-" ============================================================
-" Mako/HTML
-autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
-autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-
-" Python
-" au BufRead *.py compiler nose
-au FileType python set omnifunc=pythoncomplete#Complete
-au FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au FileType coffee setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-" Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"function! s:check_back_space() abort
-  "let col = col('.') - 1
-  "return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
 
 "" Use <c-space> to trigger completion.
 if has('nvim')
@@ -358,10 +257,6 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-"" Make <CR> auto-select the first completion item and notify coc.nvim to
-"" format on enter, <cr> could be remapped by other vim plugin
-"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              "\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 "" Use `[g` and `]g` to navigate diagnostics
 "" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -392,110 +287,36 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-"augroup mygroup
-  "autocmd!
-  "" Setup formatexpr specified filetype(s).
-  "autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  "" Update signature help on jump placeholder.
-  "autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"augroup end
 
 "" Applying codeAction to the selected region.
 "" Example: `<leader>aap` for current paragraph
-"xmap <leader>a  <Plug>(coc-codeaction-selected)
-"nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 "" Remap keys for applying codeAction to the current buffer.
 "nmap <leader>ac  <Plug>(coc-codeaction)
 "" Apply AutoFix to problem on the current line.
 "nmap <leader>qf  <Plug>(coc-fix-current)
 
-"" Map function and class text objects
-"" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-"xmap if <Plug>(coc-funcobj-i)
-"omap if <Plug>(coc-funcobj-i)
-"xmap af <Plug>(coc-funcobj-a)
-"omap af <Plug>(coc-funcobj-a)
-"xmap ic <Plug>(coc-classobj-i)
-"omap ic <Plug>(coc-classobj-i)
-"xmap ac <Plug>(coc-classobj-a)
-"omap ac <Plug>(coc-classobj-a)
-
-"" Remap <C-f> and <C-b> for scroll float windows/popups.
-"if has('nvim-0.4.0') || has('patch-8.2.0750')
-  "nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  "nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  "inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  "inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  "vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  "vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"endif
-
-"" Use CTRL-S for selections ranges.
-"" Requires 'textDocument/selectionRange' support of language server.
-"nmap <silent> <C-s> <Plug>(coc-range-select)
-"xmap <silent> <C-s> <Plug>(coc-range-select)
-
-"" Add `:Format` command to format current buffer.
-"command! -nargs=0 Format :call CocAction('format')
-
-"" Add `:Fold` command to fold current buffer.
-"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-"" Add `:OR` command for organize imports of the current buffer.
-"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-"" Add (Neo)Vim's native statusline support.
-"" NOTE: Please see `:h coc-status` for integrations with external plugins that
-"" provide custom statusline: lightline.vim, vim-airline.
 
 "" Mappings for CoCList
 "" Show all diagnostics.
-"nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 "" Manage extensions.
-"nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 "" Show commands.
-"nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 "" Find symbol of current document.
-"nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 "" Search workspace symbols.
-"nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 "" Do default action for next item.
-"nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 "" Do default action for previous item.
-"nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 "" Resume latest coc list.
-"nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-
-"set guifont=Menlo\ Regular:h20
-" let $PATH=$PATH
-"let g:coc_disable_startup_warning = 1
-
-
-" Conda python coc 
-"if $CONDA_PREFIX == ""
-  "let s:current_python_path=$CONDA_PYTHON_EXE
-"else
-  "let s:current_python_path=$CONDA_PREFIX.'/bin/python'
-"endif
-"call coc#config('python', {'pythonPath': s:current_python_path})
-"let g:pymode_rope_regenerate_on_write = 1
-noremap // y/<C-R>=escape(@",'/\')<CR><CR>
-
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-let g:neovide_cursor_animation_length=0
-set showtabline=1
-if has('termguicolors')
-      set termguicolors
-    endif
-    set background=light
-    let g:gruvbox_background = 'soft'
-    let g:gruvbox_better_performance = 1
-colorscheme gruvbox
 
 "Telescope 
 "
@@ -506,6 +327,5 @@ nnoremap <leader>fg <cmd>Telescope live_grep<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
 nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 nnoremap <Leader>pp <cmd>lua require'telescope.builtin'.grep_string{"<cword>"}<cr>
-
 
 set guifont=Monaco:h20
