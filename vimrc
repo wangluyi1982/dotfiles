@@ -21,8 +21,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'rust-lang/rust.vim'
 Plug 'xolox/vim-misc'
-Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
+Plug 'folke/tokyonight.nvim'
+Plug 'EdenEast/nightfox.nvim'
 Plug 'moll/vim-bbye'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
@@ -74,8 +74,8 @@ nnoremap sp :sp<CR>
 nnoremap on :on<CR>
 
 " Tab navigation 
-nnoremap th :bnext<CR>
-nnoremap tl :bprev<CR>
+nnoremap th :bprev<CR>
+nnoremap tj :bnext<CR>
 
 " Remap Esc 
 inoremap jj <ESC>
@@ -329,3 +329,15 @@ nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 nnoremap <Leader>pp <cmd>lua require'telescope.builtin'.grep_string{"<cword>"}<cr>
 
 set guifont=Monaco:h20
+
+" Example config in VimScript
+let g:tokyonight_style = "storm"
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+
+" Change the "hint" color to the "orange" color, and make the "error" color bright red
+let g:tokyonight_colors = {
+  \ 'hint': 'orange',
+  \ 'error': '#ff0000'
+\ }
+colorscheme tokyonight
