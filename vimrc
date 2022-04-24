@@ -35,6 +35,8 @@ Plug 'honza/vim-snippets'
 Plug 'vim-syntastic/syntastic'
 Plug 'stevearc/aerial.nvim'
 Plug 'stevearc/stickybuf.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
 
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -94,9 +96,6 @@ nmap <silent><Leader>te <Esc>:Pytest error<CR>
 " Reload Vimrc
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-" open/close the quickfix window
-nmap <leader>c :copen<CR>
-nmap <leader>cc :cclose<CR>
 
 " Close Buffer
 nnoremap c :bp\|bd #<CR>
@@ -129,9 +128,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:rust_cargo_use_clippy = 1
 let g:rustfmt_autosave = 1
 
-
-map <leader>mr :make run<CR>
-map <leader>mb :make build<CR>
 " ==========================================================
 " Basic Settings
 " ==========================================================
@@ -229,8 +225,11 @@ nnoremap <leader>y "+y<CR>
 nnoremap <leader>q :q<CR>
 
 nnoremap <silent> <F2> :make b<CR>
+nnoremap <silent> <F4> :RustTest -- --nocapture<CR>
 nnoremap <silent> <F5> :make r<CR>
+nnoremap <silent> <F6> :make t<CR>
 nnoremap <silent> <F8> :!CRITERION_DEBUG=1 cargo bench<CR>
+nnoremap <silent> <F10> :make c<CR>
 
 
 " hide matches on <leader>space
@@ -294,9 +293,9 @@ xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 "" Remap keys for applying codeAction to the current buffer.
-"nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ac  <Plug>(coc-codeaction)
 "" Apply AutoFix to problem on the current line.
-"nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 
 "" Mappings for CoCList
