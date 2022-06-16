@@ -15,7 +15,6 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter',{'do':'TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-lua/popup.nvim'
-Plug 'rmagatti/auto-session'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'hrsh7th/nvim-compe'
@@ -32,11 +31,11 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'vim-syntastic/syntastic'
-Plug 'stevearc/aerial.nvim'
-Plug 'stevearc/stickybuf.nvim'
+"Plug 'vim-syntastic/syntastic'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
+Plug 'lkemitchll/vim-kitty-runner'
+Plug 'vim-test/vim-test'
 
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -225,9 +224,9 @@ nnoremap <leader>y "+y<CR>
 nnoremap <leader>q :q<CR>
 
 nnoremap <silent> <F2> :make b<CR>
-nnoremap <silent> <F4> :RustTest -- --nocapture<CR>
+nnoremap <silent> <F4> :TestNearest -- --nocapture<CR>
 nnoremap <silent> <F5> :make r<CR>
-nnoremap <silent> <F6> :make t<CR>
+nnoremap <silent> <F6> :make t -- --nocapture<CR>
 nnoremap <silent> <F8> :!CRITERION_DEBUG=1 cargo bench<CR>
 nnoremap <silent> <F10> :make c<CR>
 
@@ -295,7 +294,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 "" Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 "" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>af  <Plug>(coc-fix-current)
 
 
 "" Mappings for CoCList
@@ -316,6 +315,11 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 "" Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 "Telescope 
 "
@@ -340,3 +344,6 @@ let g:tokyonight_colors = {
   \ 'error': '#ff0000'
 \ }
 colorscheme tokyonight
+let test#strategy = "kitty"
+
+let NERDTreeShowHidden=1
