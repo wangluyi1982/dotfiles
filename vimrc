@@ -27,7 +27,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-surround'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -36,6 +36,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 "Plug 'folke/trouble.nvim'
 Plug 'lkemitchll/vim-kitty-runner'
 Plug 'vim-test/vim-test'
+Plug 'APZelos/blamer.nvim'
 
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -347,3 +348,4 @@ colorscheme tokyonight
 let test#strategy = "kitty"
 
 let NERDTreeShowHidden=1
+let g:blamer_enabled = 1
