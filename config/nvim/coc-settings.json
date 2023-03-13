@@ -1,4 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["*"],
-  "python.formatting.provider": "autopep8"
+  "python.formatting.provider": "autopep8",
+  "python.pythonPath": "~/.vim/python_config.sh",
+  "rust-analyzer.diagnostics.disabled": ["unresolved-method"]
 }

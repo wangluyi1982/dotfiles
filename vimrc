@@ -349,3 +349,4 @@ let test#strategy = "kitty"
 
 let NERDTreeShowHidden=1
 let g:blamer_enabled = 1
+runtime macros/matchit.vim
