@@ -45,8 +45,10 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-"Plug 'mfussenegger/nvim-jdtls'
-""Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -286,3 +288,4 @@ let test#strategy = "kitty"
 let NERDTreeShowHidden=1
 let g:blamer_enabled = 1
 runtime macros/matchit.vim
+let g:asyncrun_open = 6
