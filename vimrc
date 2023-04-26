@@ -15,8 +15,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter',{'do':'TSUpdate'}
 "Plug 'nvim-treesitter/playground'
 "Plug 'nvim-lua/popup.nvim'
-"Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'BurntSushi/ripgrep'
 "Plug 'hrsh7th/nvim-compe'
 Plug 'rust-lang/rust.vim'
 "Plug 'xolox/vim-misc'
@@ -42,8 +43,10 @@ Plug 'williamboman/mason.nvim',  { 'do': ':MasonUpdate' }
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
+"Plug 'mfussenegger/nvim-jdtls'
+""Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
