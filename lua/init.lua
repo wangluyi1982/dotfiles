@@ -6,13 +6,12 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' , 'lua_ls', 'jdtls'}
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' , 'lua_ls'}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
-    root_dir = function() return vim.fs.dirname(vim.fs.find({ '.gradlew', '.gitignore', 'mvnw', 'build.grade.kts' }, { upward = true })[1]) .. "\\" end
   }
 end
 -- luasnip setup
@@ -99,3 +98,5 @@ cmp.setup {
   },
 }
 vim.o.keywordprg = ':help'
+vim.lsp.set_log_level("trace")
+require 'java'

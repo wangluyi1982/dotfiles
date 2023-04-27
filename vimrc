@@ -45,7 +45,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-"Plug 'mfussenegger/nvim-jdtls'
+Plug 'mfussenegger/nvim-jdtls'
 ""Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v2.x'}
 call plug#end()
 let g:UltiSnipsExpandTrigger="<tab>"
