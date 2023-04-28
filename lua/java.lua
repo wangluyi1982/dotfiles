@@ -1,11 +1,24 @@
-
 local jdtls_dir = vim.fn.stdpath('data') .. '/mason/packages/jdtls/'
-local config_dir = jdtls_dir .. '/config_win/'
 local plugins_dir = jdtls_dir .. '/plugins/'
 local path_to_jar = plugins_dir .. '/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar'
 local lombok_path = jdtls_dir .. "lombok.jar"
 
-local jdk_home = "C:/Users/luyiw/scoop/apps/openjdk19/current/"
+
+local jdk_home
+local config_dir
+if package.config:sub(1,1) == '\\' then -- Windows
+    print('Windows')
+    jdk_home = "C:/Users/luyiw/scoop/apps/openjdk19/current/"
+    config_dir = jdtls_dir .. '/config_win/'
+elseif package.config:sub(1,1) == '/' then -- macOS
+    print('mac')
+    jdk_home = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
+    config_dir = jdtls_dir .. '/config_mac/'
+else -- Linux
+    print('linux')
+    jdk_home = "/usr/lib/jvm/jdk-19-openjdk-amd64"
+    config_dir = jdtls_dir .. '/config_linux/'
+end
 
 local jdtls_cache = vim.fn.stdpath('cache') .. '/jdtls/'
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
@@ -17,7 +30,7 @@ local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
-    jdk_home .. '/bin/java.exe',
+    jdk_home .. '/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -39,7 +52,7 @@ local config = {
   end,
   -- This is the default if not provided, you can remove it. Or adjust as needed.
   -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = vim.fs.dirname(vim.fs.find({ '.gradlew', '.gitignore', 'mvnw', 'build.grade.kts', 'pom.xml', '.git' }, { upward = true })[1]) .. "\\",
+  root_dir = function() return vim.fs.dirname(vim.fs.find({ '.gradlew', '.gitignore', 'mvnw', 'build.grade.kts', 'pom.xml', '.git' }, { upward = true })[1]) .. "\\" end ,
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -123,4 +136,4 @@ local config = {
 
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
-require('jdtls').start_or_attach(config)
+require('lspconfig').jdtls.setup(config)
