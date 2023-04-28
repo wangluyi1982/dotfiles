@@ -58,11 +58,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-cmp.setup {
+cmp.setup ({
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
+      vim.fn["UltiSnips#Anon"](args.body)
     end,
+  },
+  window = {
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
@@ -92,11 +95,14 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'ultisnips' }
   },
-}
+  {
+      {name = 'buffer'},
+  })
+})
 vim.o.keywordprg = ':help'
-vim.lsp.set_log_level("trace")
 require 'java'

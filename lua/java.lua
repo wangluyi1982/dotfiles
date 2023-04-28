@@ -11,13 +11,15 @@ if package.config:sub(1,1) == '\\' then -- Windows
     jdk_home = "C:/Users/luyiw/scoop/apps/openjdk19/current/"
     config_dir = jdtls_dir .. '/config_win/'
 elseif package.config:sub(1,1) == '/' then -- macOS
-    print('mac')
-    jdk_home = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
-    config_dir = jdtls_dir .. '/config_mac/'
-else -- Linux
-    print('linux')
-    jdk_home = "/usr/lib/jvm/jdk-19-openjdk-amd64"
-    config_dir = jdtls_dir .. '/config_linux/'
+    if package.config:sub(3,3) == '\n' then
+        print('mac')
+        jdk_home = "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home"
+        config_dir = jdtls_dir .. '/config_mac/'
+    else -- Linux
+        print('linux')
+        jdk_home = "/usr/lib/jvm/java-19-openjdk-amd64"
+        config_dir = jdtls_dir .. '/config_linux/'
+    end
 end
 
 local jdtls_cache = vim.fn.stdpath('cache') .. '/jdtls/'
