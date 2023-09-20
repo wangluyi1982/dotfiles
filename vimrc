@@ -227,6 +227,7 @@ set incsearch               " Incrementally search while typing a /regex
 
 
 " Paste from clipboard
+set clipboard+=unnamedplus
 nnoremap <leader>p "+p<CR>
 nnoremap <leader>y "+y<CR>
 " Quit window on <leader>q
@@ -234,8 +235,8 @@ nnoremap <leader>q :q<CR>
 
 nnoremap <silent> <F2> :make b<CR>
 nnoremap <silent> <F4> :TestNearest -- --nocapture<CR>
-nnoremap <silent> <F5> :make r<CR>
-nnoremap <silent> <F6> :make t -- --nocapture<CR>
+nnoremap <silent> <F2> :make r<CR>
+nnoremap <silent> <F3> :make t -- --nocapture<CR>
 nnoremap <silent> <F8> :!CRITERION_DEBUG=1 cargo bench<CR>
 nnoremap <silent> <F10> :make c<CR>
 

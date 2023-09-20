@@ -101,7 +101,7 @@ then
     export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 fi
 
-if (( $+commands[nvim] ))
+if [ -f "/snap/bin/nvim" ] 
 then 
     alias vi='nvim'
     alias vim='nvim'
