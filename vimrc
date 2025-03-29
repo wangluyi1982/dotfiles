@@ -22,6 +22,7 @@ Plug 'BurntSushi/ripgrep'
 Plug 'rust-lang/rust.vim'
 "Plug 'xolox/vim-misc'
 Plug 'folke/tokyonight.nvim'
+"Plug 'navarasu/onedark.nvim'
 Plug 'EdenEast/nightfox.nvim'
 "Plug 'moll/vim-bbye'
 Plug 'preservim/nerdcommenter'
@@ -51,14 +52,9 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
-
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+Plug 'hedyhli/outline.nvim'
 call plug#end()
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 set encoding=utf-8
 set hidden
@@ -275,9 +271,19 @@ nnoremap <leader>fh <cmd>Telescope help_tags<CR>
 nnoremap <Leader>pp <cmd>lua require'telescope.builtin'.grep_string{"<cword>"}<cr>
 
 set guifont=Monaco:h20
-
+let g:onedark_config = {
+  \ 'style': 'warm',
+  \ 'toggle_style_key': '<leader>ts',
+  \ 'ending_tildes': v:false,
+  \ 'diagnostics': {
+    \ 'darker': v:false,
+    \ 'background': v:false,
+  \ },
+\ }
+"colorscheme onedark
+colorscheme tokyonight
 " Example config in VimScript
-let g:tokyonight_style = "storm"
+let g:tokyonight_style = "night"
 let g:tokyonight_italic_functions = 1
 let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
 
@@ -286,10 +292,36 @@ let g:tokyonight_colors = {
   \ 'hint': 'orange',
   \ 'error': '#ff0000'
 \ }
-colorscheme tokyonight
 let test#strategy = "kitty"
 
 let NERDTreeShowHidden=1
 let g:blamer_enabled = 1
 runtime macros/matchit.vim
 let g:asyncrun_open = 6
+
+noremap <silent><f5> :AsyncTask file-run<cr>
+noremap <silent><f9> :AsyncTask file-build<cr>
+
+"OSC Yank
+nmap <leader>y <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>cy <Plug>OSCYankVisual
+
+"ClangFORMAT
+if has('python')
+  map <C-K> :pyf /home/louis/.config/nvim/clang-format.py<cr>
+  imap <C-K> <c-o>:pyf /home/louis/.config/nvim/clang-format.py<cr>
+elseif has('python3')
+  map <C-K> :py3f /home/louis/.config/nvim/clang-format.py<cr>
+  imap <C-K> <c-o>:py3f /home/louis/.config/nvim/clang-format.py<cr>
+endif
+function! Formatonsave()
+  let l:formatdiff = 1
+  execute "py3f /home/louis/.config/nvim/clang-format.py"
+endfunction
+autocmd BufWritePre *.h,*.cc,*.cpp call Formatonsave()
+
+" change the current window width
+map <c-,> :vertical resize +10
+map <c-.> :vertical resize -10
+set formatoptions+=r

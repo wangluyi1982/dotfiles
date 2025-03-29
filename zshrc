@@ -80,6 +80,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias open="xdg-open"
 setopt +o nomatch
 
 command_exists () {
@@ -101,13 +102,18 @@ then
     export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
 fi
 
-if [ -f "/snap/bin/nvim" ] 
+if [ -f "/home/louis/.local/share/bob/v0.10.3/bin/nvim" ] 
 then 
     alias vi='nvim'
     alias vim='nvim'
 fi
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/.conda/pkgs/cudatoolkit-11.0.3-h15472ef_8/lib/
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/linuxbrew/.linuxbrew/Cellar/gcc@11/11.5.0/lib/gcc/11
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/gcc/x86_64-redhat-linux/14/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/anaconda3/include/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/sources/test_cutlass/bundle/cutlass/include
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/sources/test_cutlass/bundle/cutlass/tools
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/louis/sources/rooagi/accel/include/
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -126,3 +132,14 @@ unset __conda_setup
 export TERM=xterm-256color
 export PATH=$HOME/data/android_sdk/cmdline-tools/bin:$PATH
 export PATH=$HOME/data/android-studio/bin:$PATH
+export PATH=/usr/lib64/openmpi/bin/:$PATH
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export LC_CTYPE=en_US.UTF-8
+export PATH=/home/louis/.local/share/bob/v0.10.3/bin/:$PATH
+export PATH=/usr/local/cuda/bin/:$PATH
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export JAVA_HOME=/usr/lib/jvm/java-21-zulu-openjdk-ca/
+export PATH=$JAVA_HOME/bin:$PATH
+alias nvcci='/usr/local/cuda/bin/nvcc -ccbin=/home/linuxbrew/.linuxbrew/bin/g++-11  -O3 -std=c++17 -ftemplate-backtrace-limit=0 -arch sm_89 -uumn --expt-extended-lambda --expt-relaxed-constexpr --use_fast_math -Xptxas -v --compiler-options "-O3 -std=c++17 -ftemplate-backtrace-limit=0 -Wall -Wno-unused-local-typedefs -Wno-strict-aliasing -Wno-unused-function -Wno-format-security -Wno-unknown-pragmas -Wno-psabi" -I. -I/usr/local/cuda/include -I/home/louis/sources/test_cutlass/bundle/cutlass/include -I/home/louis/sources/test_cutlass/bundle/cutlass/tools/util/include -I/home/louis/sources/test_cutlass/bundle/cutlass/test -I/home/louis/sources/test_cutlass/bundle/cutlass/examples ' 

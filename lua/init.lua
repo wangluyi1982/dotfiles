@@ -6,7 +6,25 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' , 'lua_ls'}
+local servers = { 'rust_analyzer', 'pyright', 'ts_ls' , 'lua_ls'}
+
+
+lspconfig.clangd.setup {
+  cmd = { "clangd",
+  "--fallback-style=LLVM",
+  "--background-index",
+  "--suggest-missing-includes",
+  "--clang-tidy",
+  "--compile-commands-dir=build",
+  "--query-driver=/home/linuxbrew/.linuxbrew/bin/g++-11"
+  },
+  init_options = {
+    clangdFileStatus = true,
+    fallbackFlags = { "-std=c++21" }
+  },
+  capabilities = capabilities,
+
+}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -61,7 +79,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 cmp.setup ({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      --luasnip.lsp_expand(args.body)
       vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
@@ -70,14 +88,23 @@ cmp.setup ({
       documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Up
+    ['<C-f>'] = cmp.mapping.scroll_docs(4), -- Down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    ['<CR>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+            if luasnip.expandable() then
+                luasnip.expand()
+            else
+                cmp.confirm({
+                    select = true,
+                })
+            end
+        else
+            fallback()
+        end
+    end),
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -98,12 +125,11 @@ cmp.setup ({
     end, { 'i', 's' }),
   }),
   sources = cmp.config.sources({
+    { name = 'path'},
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'ultisnips' }
-  },
-  {
-      {name = 'buffer'},
+    { name = 'ultisnips' },
+    {name = 'buffer'},
   })
 })
 vim.o.keywordprg = ':help'
@@ -123,3 +149,19 @@ else
     vim.g.python_host_prog = use_if_defined(vim.g.python_host_prog, "python")
     vim.g.python3_host_prog = use_if_defined(vim.g.python3_host_prog, "python3")
 end
+
+--require('onedark').setup {
+  --colors = {
+    --bright_orange = "#ff8911",    -- define a new color
+    --green = '#00ffaa',            -- redefine an existing color
+  --},
+  --highlights = {
+    --["@keyword"] = {fg = '$green'},
+    --["@string"] = {fg = '$bright_orange', bg = '#00ff00', fmt = 'bold'},
+    --["@function"] = {fg = '#0000ff', sp = '$cyan', fmt = 'underline,italic'},
+    --["@function.builtin"] = {fg = '#0059ff'}
+  --}
+--}
+--
+--" show the function list
+require("outline").setup({})
