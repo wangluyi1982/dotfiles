@@ -39,9 +39,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'lkemitchll/vim-kitty-runner'
 Plug 'vim-test/vim-test'
 Plug 'APZelos/blamer.nvim'
+Plug 'rebelot/kanagawa.nvim'
 ""lsp configuration
-Plug 'williamboman/mason.nvim',  { 'do': ':MasonUpdate' }
-Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'mason-org/mason.nvim',  { 'do': ':MasonUpdate' }
+Plug 'mason-org/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -54,6 +55,10 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'hedyhli/outline.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 call plug#end()
 
 set encoding=utf-8
@@ -104,6 +109,7 @@ nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
 nmap <silent><Leader>te <Esc>:Pytest error<CR>
 
 " Reload Vimrc
+" Plug 'rebelot/kanagawa.nvim'
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 
@@ -281,17 +287,18 @@ let g:onedark_config = {
   \ },
 \ }
 "colorscheme onedark
-colorscheme tokyonight
+colorscheme catppuccin-mocha
+"colorscheme tokyonight
 " Example config in VimScript
-let g:tokyonight_style = "night"
-let g:tokyonight_italic_functions = 1
-let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+"let g:tokyonight_style = "night"
+"let g:tokyonight_italic_functions = 1
+"let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
 
-" Change the "hint" color to the "orange" color, and make the "error" color bright red
-let g:tokyonight_colors = {
-  \ 'hint': 'orange',
-  \ 'error': '#ff0000'
-\ }
+"" Change the "hint" color to the "orange" color, and make the "error" color bright red
+"let g:tokyonight_colors = {
+  "\ 'hint': 'orange',
+  "\ 'error': '#ff0000'
+"\ }
 let test#strategy = "kitty"
 
 let NERDTreeShowHidden=1

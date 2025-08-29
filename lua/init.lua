@@ -1,36 +1,29 @@
-local lspconfig = require('lspconfig')
-local mason = require('mason').setup()
-local mason_lsp_config = require('mason-lspconfig').setup()
-
+--local lspconfig = require('lspconfig')
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-
+require('mason').setup()
+require('mason-lspconfig').setup()
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { 'rust_analyzer', 'pyright', 'ts_ls' , 'lua_ls'}
 
 
-lspconfig.clangd.setup {
-  cmd = { "clangd",
-  "--fallback-style=LLVM",
-  "--background-index",
-  "--suggest-missing-includes",
-  "--clang-tidy",
-  "--compile-commands-dir=build",
-  "--query-driver=/home/linuxbrew/.linuxbrew/bin/g++-11"
-  },
-  init_options = {
-    clangdFileStatus = true,
-    fallbackFlags = { "-std=c++21" }
-  },
-  capabilities = capabilities,
-
-}
+vim.lsp.config('clangd',{
+    cmd = { "clangd",
+    "--fallback-style=LLVM",
+    "--background-index",
+    "--suggest-missing-includes",
+    "--clang-tidy",
+    "--compile-commands-dir=build",
+    "--query-driver=/home/linuxbrew/.linuxbrew/bin/g++-11"
+    },
+    init_options = {
+        clangdFileStatus = true,
+        fallbackFlags = { "-std=c++21" }
+    },
+    capabilities = capabilities,
+})
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
+  vim.lsp.enable(lsp)
 end
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -130,6 +123,7 @@ cmp.setup ({
     { name = 'luasnip' },
     { name = 'ultisnips' },
     {name = 'buffer'},
+    {name = 'path'},
   })
 })
 vim.o.keywordprg = ':help'
